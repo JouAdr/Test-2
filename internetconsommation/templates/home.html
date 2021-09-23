@@ -1,25 +1,29 @@
 {% extends "base.html" %}
 
-{% block title %}  <h1 style="text-align:center" > Internet Consommation </h1> <br> {% endblock title %}
-<hr>
+{% block title %}  <h1 style="text-align:center" > Internet Consommation </h1> <br>  {% endblock title %}
+
 
 {% block content %}
-    {% comment %} <input type="text" id="tags">  {% endcomment %}
     <div class="container">
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="tags" >
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> <br> 
+        <hr>
+        <form class="form-inline" action="{% url 'search' %}" method="GET">
+            {% comment %} {% csrf_token %} {% endcomment %}
+            <input class="form-control mr-sm-2" type="text" name="q" placeholder="Username" aria-label="Search" id="tags" >
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Consommation</button> <br> 
         </form>
+        <hr>
+        {% for user, consommation in consommations_totals_sorted %}
+            {% if user == username %}
+                {{user}} : {{consommation}} Go<br>          
+                <hr>
+            {% endif %}
+        {% endfor %} 
     </div>
-    <hr>
-    {% for user, consommation in consommations_total %}
-        {{user}} : {{consommation}} Go<br>    
-    {% endfor %}
-
+    
     <script>
         $( function() {
             var availableTags = [
-                {% for user,consommation in consommations_total %}
+                {% for user,consommation in consommations_totals_sorted %}
                     "{{user}}",
                 {% endfor %}
             ];
