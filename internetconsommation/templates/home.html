@@ -14,7 +14,7 @@
         <hr>
         {% for user, consommation in consommations_totals_sorted %}
             {% if user == username %}
-                {{user}} : {{consommation}} Go<br>          
+                {{user}} :  {{consommation}}  Go <br>          
                 <hr>
             {% endif %}
         {% endfor %} 
@@ -23,7 +23,7 @@
     <script>
         $( function() {
             var availableTags = [
-                {% for user,consommation in consommations_totals_sorted %}
+                {% for user in consommations_user %}
                     "{{user}}",
                 {% endfor %}
             ];
